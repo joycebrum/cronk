@@ -1,15 +1,17 @@
-set -eu
+#!/bin/bash
+
+set -euo pipefail
+
+cd $KOKORO_ARTIFACTS_DIR/git/cronk
 
 pip install -U \
     keyring \
     twine \
     setuptools \
     wheel > /dev/null
-pip install -U keyrings.google-artifactregistry-auth > /dev/null
 
-if ! gcloud auth application-default print-access-token --quiet > /dev/null; then
-    gcloud auth application-default login
-fi
+pip install -U \
+    keyrings.google-artifactregistry-auth > /dev/null
 
 python3 -m build --wheel
 
