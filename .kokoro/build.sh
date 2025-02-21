@@ -5,6 +5,7 @@ set -euo pipefail
 cd $KOKORO_ARTIFACTS_DIR/git/cronk
 
 pip install -U \
+    build \
     keyring \
     twine \
     setuptools \
@@ -16,6 +17,6 @@ pip install -U \
 python3 -m build --wheel
 
 twine upload \
-    --repository-url https://us-central1-python.pkg.dev/oss-exit-gate-dev/cronk--testpypi \
+    --repository-url https://us-python.pkg.dev/oss-exit-gate-dev/cronk--testpypi \
     --verbose \
     dist/*
