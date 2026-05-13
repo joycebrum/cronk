@@ -19,4 +19,4 @@ jobs:
       - uses: google-github-actions/setup-gcloud@v1
       - run: |
           echo "test" > test.txt
-          gcloud storage cp test.txt gs://oss-exit-gate-wif-test-bucket --verbosity=debug --log-http
+          gcloud storage cp test.txt gs://oss-exit-gate-dev-wif-test-bucket --verbosity=debug --log-http
