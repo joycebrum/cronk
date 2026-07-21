@@ -15,7 +15,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: google-github-actions/auth@v3
         with: # project 413555110372 is the ephemeral/experimental MultiOrg
-          workload_identity_provider: projects/413555110372/locations/global/workloadIdentityPools/builders/providers/github
+              # joycebrum: I've changed to the not ephemeral project 305452601764
+          workload_identity_provider: projects/305452601764/locations/global/workloadIdentityPools/builders/providers/github
       - uses: google-github-actions/setup-gcloud@v1
       - run: |
           echo "test" > test.txt
