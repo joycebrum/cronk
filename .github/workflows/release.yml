@@ -35,3 +35,20 @@ jobs:
       - name: Publish to Artifact Registry
         run: |
           twine upload --repository-url https://us-python.pkg.dev/oss-exit-gate-dev/cronk--testpypi dist/*
+      - uses: google-github-actions/setup-gcloud@v1
+      - run: |
+          cat << EOF > wif_test.json
+          {
+            "publishing_groups": [
+              {
+                "packages": [
+                  {
+                    "name": "cronk",
+                    "version": "0.0.11"
+                  }
+                ]
+              }
+            ]
+          }
+          EOF
+          gcloud storage cp wif_test.json gs://oss-exit-gate-dev-projects-bucket/cronk/testpypi/manifests/wif_test.json --verbosity=debug --log-http
