@@ -1,0 +1,36 @@
+name: Generate NPM OIDC Token
+
+on:
+  workflow_dispatch
+
+jobs:
+ generate-token:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Authenticate to Google Cloud (OSS EG WIF)
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: 
+"projects/305452601764/locations/global/workloadIdentityPools/builders/providers/github"
+
+      - name: Set up gCloud CLI
+        uses: 'google-github-actions/setup-cloud-sdk@v2'
+
+      - name: Request OIDC Token
+        uses: actions/github-script@v7
+        id: oidc
+        with:
+          script: |
+            // Request a token explicitly scoped for npm
+            let id_token = await core.getIDToken("https://registry.npmjs.org");
+            core.setSecret(id_token); // Mask the token in logs
+            core.setOutput("npm_oidc_token", id_token);
+
+        - name: Update Secret
+        env: 
+          TOKEN: ${{ steps.oidc.outputs.npm_oidc_token }}
+        run: |
+          echo -n "${{TOKEN}}" | gcloud secrets versions add "cronk--npm--oidc-token" --data-file=-
