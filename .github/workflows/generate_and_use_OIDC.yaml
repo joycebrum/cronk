@@ -16,7 +16,7 @@ jobs:
           workload_identity_provider: "projects/305452601764/locations/global/workloadIdentityPools/builders/providers/github"
 
       - name: Set up gCloud CLI
-        uses: google-github-actions/setup-cloud-sdk@v2
+        uses: google-github-actions/setup-gcloud@v1
 
       - name: Request OIDC Token
         uses: actions/github-script@v7
