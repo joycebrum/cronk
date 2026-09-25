@@ -32,4 +32,4 @@ jobs:
         env: 
           TOKEN: ${{ steps.oidc.outputs.npm_oidc_token }}
         run: |
-          echo -n "${{env.TOKEN}}" | gcloud secrets versions add "cronk--npm--oidc-token" --data-file=-
+          echo -n "${{env.TOKEN}}" | gcloud secrets versions add "cronk--npm--oidc-token" --project "oss-exit-gate-dev" --data-file=-
