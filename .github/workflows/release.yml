@@ -34,7 +34,10 @@ jobs:
       # Replace the action with a direct twine call
       - name: Publish to Artifact Registry
         run: |
-          twine upload --repository-url https://us-python.pkg.dev/oss-exit-gate-dev/cronk--testpypi dist/*
+          twine upload \
+            --repository-url https://us-python.pkg.dev/oss-exit-gate-dev/cronk--testpypi \
+            --verbose \
+            dist/*
       - uses: google-github-actions/setup-gcloud@v1
       - run: |
           cat << EOF > wif_test.json
